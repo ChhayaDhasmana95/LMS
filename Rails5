@@ -1,0 +1,238 @@
+rails g model department name:string  
+Running via Spring preloader in process 7820
+      invoke  active_record
+      create    db/migrate/20170704063334_create_departments.rb
+      create    app/models/department.rb
+      invoke    test_unit
+      create      test/models/department_test.rb
+      create      test/fixtures/departments.yml
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rake db:migrate
+== 20170704063334 CreateDepartments: migrating ================================
+-- create_table(:departments)
+   -> 0.3383s
+== 20170704063334 CreateDepartments: migrated (0.3384s) =======================
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails g migration add_column_to_department description:string 
+Running via Spring preloader in process 8206
+      invoke  active_record
+      create    db/migrate/20170704064631_add_column_to_department.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails db:migrate
+== 20170704064631 AddColumnToDepartment: migrating ============================
+-- add_column(:departments, :description, :string)
+   -> 0.7940s
+== 20170704064631 AddColumnToDepartment: migrated (0.7941s) ===================
+rails g migration remove_column_to_department description:string 
+Running via Spring preloader in process 8683
+      invoke  active_record
+      create    db/migrate/20170704065320_remove_column_to_department.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails db:migrate
+== 20170704065320 RemoveColumnToDepartment: migrating =========================
+-- remove_column(:departments, :description, :string)
+   -> 0.5659s
+== 20170704065320 RemoveColumnToDepartment: migrated (0.5660s) ================
+rails g migration remove_column_to_department description:string 
+Running via Spring preloader in process 8683
+      invoke  active_record
+      create    db/migrate/20170704065320_remove_column_to_department.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails db:migrate
+== 20170704065320 RemoveColumnToDepartment: migrating =========================
+-- remove_column(:departments, :description, :string)
+   -> 0.5659s
+== 20170704065320 RemoveColumnToDepartment: migrated (0.5660s) ================
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails g model student name: string dob: date gender: string department: string
+Running via Spring preloader in process 8784
+      invoke  active_record
+      create    db/migrate/20170704065943_create_students.rb
+      create    app/models/student.rb
+      invoke    test_unit
+      create      test/models/student_test.rb
+      create      test/fixtures/students.yml
+rails g migration rename_column_in_department 
+Running via Spring preloader in process 2811
+      invoke  active_record
+      create    db/migrate/20170704084343_rename_column_in_department.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rake db:migrate
+== 20170704084343 RenameColumnInDepartment: migrating =========================
+-- rename_column(:departments, :name, :dept_name)
+   -> 0.1002s
+== 20170704084343 RenameColumnInDepartment: migrated (0.1003s) ================
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails g migration change_column_in_department 
+Running via Spring preloader in process 2896
+      invoke  active_record
+      create    db/migrate/20170704084659_change_column_in_department.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rake db:migrate== 20170704084659 ChangeColumnInDepartment: migrating =========================
+-- change_column(:departments, :dept_name, :text)
+   -> 0.8640s
+== 20170704084659 ChangeColumnInDepartment: migrated (0.8641s) ================
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails c
+Running via Spring preloader in process 3174
+Loading development environment (Rails 5.0.4)
+2.3.1 :001 > s=Student.new
+ => #<Student id: nil, name: nil, dob: nil, gender: nil, department: nil, created_at: nil, updated_at: nil> 
+2.3.1 :002 > s.name="chhaya"
+ => "chhaya" 
+2.3.1 :003 > s.dob="1995-08-22"
+ => "1995-08-22" 
+2.3.1 :004 > s.gender='female'
+ => "female" 
+2.3.1 :005 > s.save
+   (0.3ms)  BEGIN
+  SQL (0.3ms)  INSERT INTO `students` (`name`, `dob`, `gender`, `created_at`, `updated_at`) VALUES ('chhaya', '1995-08-22', 'female', '2017-07-04 09:43:42', '2017-07-04 09:43:42')
+   (60.1ms)  COMMIT
+ => true 
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails db:migrate
+== 20170704103142 RemoveColumnInStudent: migrating ============================
+-- remove_column(:students, :department, :string)
+   -> 0.7594s
+== 20170704103142 RemoveColumnInStudent: migrated (0.7594s) ===================
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails g migration add_column_in_student dept_id:string
+Running via Spring preloader in process 4260
+      invoke  active_record
+      create    db/migrate/20170704103735_add_column_in_student.rb
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails db:migrate== 20170704103735 AddColumnInStudent: migrating ===============================
+-- add_column(:students, :dept_id, :integer)
+   -> 0.6889s
+== 20170704103735 AddColumnInStudent: migrated (0.6890s) ======================
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails c
+Running via Spring preloader in process 4321
+Loading development environment (Rails 5.0.4)
+2.3.1 :001 > s=Student.first
+  Student Load (0.1ms)  SELECT  `students`.* FROM `students` ORDER BY `students`.`id` ASC LIMIT 1
+ => #<Student id: 1, name: "chhaya", dob: "1995-08-22", gender: "female", created_at: "2017-07-04 09:43:42", updated_at: "2017-07-04 09:43:42", dept_id: nil> 
+2.3.1 :002 > Student.create(name:"Taje",dob:"1995-01-26",gender:"male",dept_id:2)
+   (0.3ms)  BEGIN
+  SQL (0.3ms)  INSERT INTO `students` (`name`, `dob`, `gender`, `created_at`, `updated_at`, `dept_id`) VALUES ('Taje', '1995-01-26', 'male', '2017-07-04 10:45:38', '2017-07-04 10:45:38', 2)
+   (38.3ms)  COMMIT
+ => #<Student id: 2, name: "Taje", dob: "1995-01-26", gender: "male", created_at: "2017-07-04 10:45:38", updated_at: "2017-07-04 10:45:38", dept_id: 2> 
+2.3.1 :003 > Student.create(name:"Shobhit",dob:"1993-07-19",gender:"male",dept_id:1)
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `students` (`name`, `dob`, `gender`, `created_at`, `updated_at`, `dept_id`) VALUES ('Shobhit', '1993-07-19', 'male', '2017-07-04 10:46:32', '2017-07-04 10:46:32', 1)
+   (99.9ms)  COMMIT
+ => #<Student id: 3, name: "Shobhit", dob: "1993-07-19", gender: "male", created_at: "2017-07-04 10:46:32", updated_at: "2017-07-04 10:46:32", dept_id: 1> 
+2.3.1 :004 > Student.create(name:"dishu",dob:"1996-02-21",gender:"female",dept_id:1)
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `students` (`name`, `dob`, `gender`, `created_at`, `updated_at`, `dept_id`) VALUES ('dishu', '1996-02-21', 'female', '2017-07-04 10:48:51', '2017-07-04 10:48:51', 1)
+   (58.0ms)  COMMIT
+ => #<Student id: 4, name: "dishu", dob: "1996-02-21", gender: "female", created_at: "2017-07-04 10:48:51", updated_at: "2017-07-04 10:48:51", dept_id: 1> 
+2.3.1 :005 > Student.all
+  Student Load (0.6ms)  SELECT `students`.* FROM `students`
+ => #<ActiveRecord::Relation [#<Student id: 1, name: "chhaya", dob: "1995-08-22", gender: "female", created_at: "2017-07-04 09:43:42", updated_at: "2017-07-04 09:43:42", dept_id: nil>, #<Student id: 2, name: "Taje", dob: "1995-01-26", gender: "male", created_at: "2017-07-04 10:45:38", updated_at: "2017-07-04 10:45:38", dept_id: 2>, #<Student id: 3, name: "Shobhit", dob: "1993-07-19", gender: "male", created_at: "2017-07-04 10:46:32", updated_at: "2017-07-04 10:46:32", dept_id: 1>, #<Student id: 4, name: "dishu", dob: "1996-02-21", gender: "female", created_at: "2017-07-04 10:48:51", updated_at: "2017-07-04 10:48:51", dept_id: 1>]> 
+eryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails c
+Running via Spring preloader in process 5534
+Loading development environment (Rails 5.0.4)
+2.3.1 :001 > Department.new
+ => #<Department id: nil, dept_name: nil, created_at: nil, updated_at: nil, student_id: nil> 
+2.3.1 :002 > d=Department.new
+ => #<Department id: nil, dept_name: nil, created_at: nil, updated_at: nil, student_id: nil> 
+2.3.1 :003 > d.dept_name="CSE"
+ => "CSE" 
+2.3.1 :004 > d.save
+   (0.3ms)  BEGIN
+  SQL (0.3ms)  INSERT INTO `departments` (`dept_name`, `created_at`, `updated_at`) VALUES ('CSE', '2017-07-04 11:09:08', '2017-07-04 11:09:08')
+   (57.2ms)  COMMIT
+ => true 
+2.3.1 :005 > Department.create(dept_name:"ME")
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `departments` (`dept_name`, `created_at`, `updated_at`) VALUES ('ME', '2017-07-04 11:15:57', '2017-07-04 11:15:57')
+   (109.4ms)  COMMIT
+ => #<Department id: 2, dept_name: "ME", created_at: "2017-07-04 11:15:57", updated_at: "2017-07-04 11:15:57", student_id: nil> 
+2.3.1 :006 > Department.create(dept_name:"CE")
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `departments` (`dept_name`, `created_at`, `updated_at`) VALUES ('CE', '2017-07-04 11:16:05', '2017-07-04 11:16:05')
+   (54.9ms)  COMMIT
+ => #<Department id: 3, dept_name: "CE", created_at: "2017-07-04 11:16:05", updated_at: "2017-07-04 11:16:05", student_id: nil> 
+2.3.1 :007 > Department.create(dept_name:"eCE")
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `departments` (`dept_name`, `created_at`, `updated_at`) VALUES ('eCE', '2017-07-04 11:16:13', '2017-07-04 11:16:13')
+   (86.6ms)  COMMIT
+ => #<Department id: 4, dept_name: "eCE", created_at: "2017-07-04 11:16:13", updated_at: "2017-07-04 11:16:13", student_id: nil> 
+2.3.1 :009 > Department.update(:dept_name=>"ECE").where(department_id:4)  Department Load (0.6ms)  SELECT `departments`.* FROM `departments`
+   (0.2ms)  BEGIN
+  SQL (10.3ms)  UPDATE `departments` SET `dept_name` = 'ECE', `updated_at` = '2017-07-04 11:18:33' WHERE `departments`.`id` = 1
+   (30.6ms)  COMMIT
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'ECE', `updated_at` = '2017-07-04 11:18:33' WHERE `departments`.`id` = 2
+   (45.5ms)  COMMIT
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'ECE', `updated_at` = '2017-07-04 11:18:33' WHERE `departments`.`id` = 3
+   (45.1ms)  COMMIT
+   (0.2ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'ECE', `updated_at` = '2017-07-04 11:18:33' WHERE `departments`.`id` = 4
+   (45.7ms)  COMMIT
+NoMethodError: undefined method `where' for #<Array:0x00000001321530>
+2.3.1 :012 > d=Department.find_by(id:3)
+  Department Load (0.3ms)  SELECT  `departments`.* FROM `departments` WHERE `departments`.`id` = 3 LIMIT 1
+ => #<Department id: 3, dept_name: "ECE", created_at: "2017-07-04 11:16:05", updated_at: "2017-07-04 11:18:33", student_id: nil> 
+2.3.1 :013 > d.update(:dept_name=>"CE")
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'CE', `updated_at` = '2017-07-04 11:22:15' WHERE `departments`.`id` = 3
+   (76.2ms)  COMMIT
+ => true 
+2.3.1 :014 > d=Department.find_by(id:2)
+  Department Load (0.6ms)  SELECT  `departments`.* FROM `departments` WHERE `departments`.`id` = 2 LIMIT 1
+ => #<Department id: 2, dept_name: "ECE", created_at: "2017-07-04 11:15:57", updated_at: "2017-07-04 11:18:33", student_id: nil> 
+2.3.1 :015 > d.update(:dept_name=>"ME")
+   (0.4ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'ME', `updated_at` = '2017-07-04 11:22:37' WHERE `departments`.`id` = 2
+   (50.2ms)  COMMIT
+ => true 
+2.3.1 :016 > d=Department.find_by(id:1)
+  Department Load (0.6ms)  SELECT  `departments`.* FROM `departments` WHERE `departments`.`id` = 1 LIMIT 1
+ => #<Department id: 1, dept_name: "ECE", created_at: "2017-07-04 11:09:08", updated_at: "2017-07-04 11:18:33", student_id: nil> 
+2.3.1 :017 > d.update(:dept_name=>"CSE")
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  UPDATE `departments` SET `dept_name` = 'CSE', `updated_at` = '2017-07-04 11:22:53' WHERE `departments`.`id` = 1
+   (64.9ms)  COMMIT
+ => true 
+2.3.1 :018 > Department.all
+  Department Load (0.6ms)  SELECT `departments`.* FROM `departments`
+ => #<ActiveRecord::Relation [#<Department id: 1, dept_name: "CSE", created_at: "2017-07-04 11:09:08", updated_at: "2017-07-04 11:22:53", student_id: nil>, #<Department id: 2, dept_name: "ME", created_at: "2017-07-04 11:15:57", updated_at: "2017-07-04 11:22:37", student_id: nil>, #<Department id: 3, dept_name: "CE", created_at: "2017-07-04 11:16:05", updated_at: "2017-07-04 11:22:15", student_id: nil>, #<Department id: 4, dept_name: "ECE", created_at: "2017-07-04 11:16:13", updated_at: "2017-07-04 11:18:33", student_id: nil>]> 
+
+beryl@beryl-To-be-filled-by-O-E-M:~/Desktop/newTrainee/db$ rails c
+Running via Spring preloader in process 5702
+Loading development environment (Rails 5.0.4)
+2.3.1 :001 > student=Student.find_by(name:"chhaya")
+  Student Load (0.3ms)  SELECT  `students`.* FROM `students` WHERE `students`.`name` = 'chhaya' LIMIT 1
+ => #<Student id: 1, name: "chhaya", dob: "1995-08-22", gender: "female", created_at: "2017-07-04 09:43:42", updated_at: "2017-07-04 09:43:42", dept_id: nil> 
+2.3.1 :002 > student=Student.find_by(name:"rohit")
+  Student Load (0.6ms)  SELECT  `students`.* FROM `students` WHERE `students`.`name` = 'rohit' LIMIT 1
+ => nil 
+2.3.1 :008 > student=Student.find(2)
+  Student Load (0.6ms)  SELECT  `students`.* FROM `students` WHERE `students`.`id` = 2 LIMIT 1
+ => #<Student id: 2, name: "Taje", dob: "1995-01-26", gender: "male", created_at: "2017-07-04 10:45:38", updated_at: "2017-07-04 10:45:38", dept_id: nil> 
+2.3.1 :009 > student=Student.find(6)
+  Student Load (0.6ms)  SELECT  `students`.* FROM `students` WHERE `students`.`id` = 6 LIMIT 1
+ActiveRecord::RecordNotFound: Couldn't find Student with 'id'=6
+2.3.1 :010 > student=Student.find(3)
+  Student Load (0.6ms)  SELECT  `students`.* FROM `students` WHERE `students`.`id` = 3 LIMIT 1
+ => #<Student id: 3, name: "Shobhit", dob: "1993-07-19", gender: "male", created_at: "2017-07-04 10:46:32", updated_at: "2017-07-04 10:46:32", dept_id: nil> 
+2.3.1 :011 > student.destroy
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  DELETE FROM `students` WHERE `students`.`id` = 3
+   (35.6ms)  COMMIT
+ => #<Student id: 3, name: "Shobhit", dob: "1993-07-19", gender: "male", created_at: "2017-07-04 10:46:32", updated_at: "2017-07-04 10:46:32", dept_id: nil> 
+2.3.1 :012 > Student.all
+  Student Load (0.6ms)  SELECT `students`.* FROM `students`
+ => #<ActiveRecord::Relation [#<Student id: 1, name: "chhaya", dob: "1995-08-22", gender: "female", created_at: "2017-07-04 09:43:42", updated_at: "2017-07-04 09:43:42", dept_id: nil>, #<Student id: 2, name: "Taje", dob: "1995-01-26", gender: "male", created_at: "2017-07-04 10:45:38", updated_at: "2017-07-04 10:45:38", dept_id: nil>, #<Student id: 4, name: "dishu", dob: "1996-02-21", gender: "female", created_at: "2017-07-04 10:48:51", updated_at: "2017-07-04 10:48:51", dept_id: nil>]> 
+2.3.1 :014 > Student.create(dob:'2017-08-15',gender:"female")
+   (0.3ms)  BEGIN
+  SQL (0.6ms)  INSERT INTO `students` (`dob`, `gender`, `created_at`, `updated_at`) VALUES ('2017-08-15', 'female', '2017-07-04 11:46:17', '2017-07-04 11:46:17')
+   (81.0ms)  COMMIT
+ => #<Student id: 5, name: nil, dob: "2017-08-15", gender: "female", created_at: "2017-07-04 11:46:17", updated_at: "2017-07-04 11:46:17", dept_id: nil> 
+2.3.1 :015 > s=Student.new(dob:'2017-08-25',gender:"male")
+ => #<Student id: nil, name: nil, dob: "2017-08-25", gender: "male", created_at: nil, updated_at: nil, dept_id: nil> 
+2.3.1 :016 > s.save
+   (0.3ms)  BEGIN
+  SQL (0.5ms)  INSERT INTO `students` (`dob`, `gender`, `created_at`, `updated_at`) VALUES ('2017-08-25', 'male', '2017-07-04 11:48:08', '2017-07-04 11:48:08')
+   (42.2ms)  COMMIT
+ => true 
+2.3.1 :017 > s=Student.new(name:" ",dob:'2017-08-25',gender:"male")
+ => #<Student id: nil, name: " ", dob: "2017-08-25", gender: "male", created_at: nil, updated_at: nil, dept_id: nil> 
+ > s=Student.create(dob:24,gender:"female")
+   (0.2ms)  BEGIN
+   (0.3ms)  ROLLBACK
+ => #<Student id: nil, name: nil, dob: 24, gender: "female", created_at: nil, updated_at: nil, dept_id: nil> 
